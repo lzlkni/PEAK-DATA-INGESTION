@@ -79,7 +79,8 @@ for ((i=1;i<=6;i++));do
     KEYSTORE_PASS=$(cat nifi.properties  |grep nifi.security.keystorePasswd|cut  -d "=" -f 2)
     
     keytool -export -alias nifi-key -file $NIFITOOL/target/wn${i}-hdi-ua/wn${i}.cer  -keystore $NIFITOOL/target/wn${i}-hdi-ua/keystore.jks -storepass $KEYSTORE_PASS
-    
+    # upload data node key to blog storage
+	az storage blob upload --container-name nifi --file $NIFITOOL/target/wn${i}-hdi-ua/wn${i}.cer --name $NIFITOOL/target/wn${i}-hdi-ua/wn${i}.cer --account-name peakdiautomation
 done
 
 # Import public key to each machine
