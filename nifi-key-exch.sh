@@ -14,13 +14,13 @@ HOSTNAME=`hostname`
 # Import the helper method module.
 wget -O /tmp/HDInsightUtilities-v01.sh -q https://hdiconfigactions.blob.core.windows.net/linuxconfigactionmodulev01/HDInsightUtilities-v01.sh && source /tmp/HDInsightUtilities-v01.sh && rm -f /tmp/HDInsight$
 PRIMARY_HEADNODE=$(get_primary_headnode)
+PRIMARY_HEADNODE_HOSTNAME=$(echo $PRIMARY_HEADNODE | cut -d '.' -f 1)
+ENV=$(echo $PRIMARY_HEADNODE_HOSTNAME|cut -d '-' -f 3)
 
-if [ $PRIMARY_HEADNODE == $HOSTNAME ];then
+if [ $PRIMARY_HEADNODE_HOSTNAME != $HOSTNAME ];then
     echo "It's not primary head node. Exiting..."
     exit 0
 fi
-
-ENV=$(echo $PRIMARY_HEADNODE|cut -d '.' -f 1|cut -d '-' -f 3)
 
 OS_VERSION=$(lsb_release -sr)
 echo "OS Version is $OS_VERSION"
@@ -28,7 +28,9 @@ echo "OS Version is $OS_VERSION"
 # Generate and exchange certification between clients
 download_file https://peakdiautomation.blob.core.windows.net/nifi/nifi-toolkit-1.7.1-bin.tar.gz /tmp/nifi-toolkit-1.7.1-bin.tar.gz
 
-tar -zxvf /tmp/nifi-toolkit-1.7.1-bin.tar.gz /usr/hdp/current
+untar_file /tmp/nifi-toolkit-1.7.1-bin.tar.gz /usr/hdp/current
+
+rm -rf /tmp/nifi-toolkit-1.7.1-bin.tar.gz
 
 NIFITOOL='/usr/hdp/current/nifi-toolkit-1.7.1'
 cp /usr/hdp/current/nifi/conf/nifi.properties $NIFITOOL
