@@ -109,8 +109,19 @@ function wait-file-gen {
     done
 
     # If wait more then 30min, exit the program
-    if [[ $cnt -eq 360 ]];then       
-        error-handler 1 "Wait 30 mins, there should be error somewhere, please check..."
+    if [[ $cnt -eq 120 ]];then       
+        error-handler 1 "Wait 10 mins, there should be error somewhere, please check..."
+    fi
+}
+
+function is_first_datanode
+{
+    shorthostname=`hostname -s`
+    firstNode=$(cat /etc/hadoop/conf/slaves |grep wn|sort|cut -d '.' -f 1|sed -n '1p')
+    if [[ $shorthostname == workernode0 || $shorthostname == wn0-* || $shorthostname == $firstNode ]]; then
+        echo 1;
+    else
+        echo 0;
     fi
 }
 ###################################
@@ -120,6 +131,7 @@ function wait-file-gen {
 aadapp_id=$1
 aadapp_pwd=$2
 tenant_id=$3
+proxy_nifi=$4
 
 
 if [[ -z "$aadapp_id" ]]; then
@@ -174,33 +186,32 @@ sed -i 's/nifi.web.http.port=8080/nifi.web.http.port=/g' nifi.properties
 sed -i 's/nifi.web.http.port=8070/nifi.web.http.port=/g' nifi.properties
 sed -i 's/nifi.web.https.port=/nifi.web.https.port=9443/g' nifi.properties
 sed -i 's/nifi.cluster.is.node=false/nifi.cluster.is.node=true/g' nifi.properties
-sed -i "s/nifi.cluster.node.address=/nifi.cluster.node.address=${HOSTNAME}/g" nifi.properties
+sed -i 's/nifi.cluster.node.address=/nifi.cluster.node.address=${HOSTNAME}/g' nifi.properties
 sed -i 's/nifi.cluster.node.protocol.port=/nifi.cluster.node.protocol.port=11443/g' nifi.properties
 sed -i "s/nifi.zookeeper.connect.string=/nifi.zookeeper.connect.string=${ZKHOSTS}/g" nifi.properties
 sed -i "s/<property name=\"Connect String\"><\/property>/<property name=\"Connect String\">${ZKHOSTS}<\/property>/g" state-management.xml
 # Add OIDC setting - Lik
 sed -i "s/nifi.security.user.oidc.discovery.url=/nifi.security.user.oidc.discovery.url=https:\/\/login.microsoftonline.com\/${tenant_id}\/.well-known\/openid-configuration/" nifi.properties
 sed -i "s/nifi.security.user.oidc.client.id=/nifi.security.user.oidc.client.id=${aadapp_id}/" nifi.properties
-sed -i "s/nifi.security.user.oidc.client.secret=/nifi.security.user.oidc.client.secret=${aadapp_pwd}/" nifi.properties
+sed -i "s?nifi.security.user.oidc.client.secret=?nifi.security.user.oidc.client.secret=${aadapp_pwd}?" nifi.properties
 sed -i "s/nifi.security.user.authorizer=managed-authorizer/nifi.security.user.authorizer=file-provider/" nifi.properties
 
 sed -i "s/nifi.variable.registry.properties=/nifi.variable.registry.properties=conf\/peak_custom.properties/" nifi.properties
 # Review
-sed -i "s/nifi.web.proxy.host=/nifi.web.proxy.host=/" nifi.properties
-
+sed -i "s/nifi.web.proxy.host=/nifi.web.proxy.host=${proxy_nifi}/" nifi.properties
 
 sed -i 's/java.arg.2=-Xms512m/java.arg.2=-Xms4g/g' bootstrap.conf
 sed -i 's/java.arg.3=-Xmx512m/java.arg.3=-Xmx8g/g' bootstrap.conf
 
-# Cleanup any output before
-hdfs dfs -rm -r -f /user/root/cert
-hdfs dfs -rm -r -f /user/root/keystore
-hdfs dfs -rm -r -f /user/root/nifi-properties
-hdfs dfs -rm -r -f /user/root/truststore
 
 # If it's wn0 run the key gen and exchange
     
-    if [[ $(test_is_first_datanode) -eq 1 ]];then
+    if [[ $(is_first_datanode) -eq 1 ]];then
+    # Cleanup any output before
+        hdfs dfs -rm -r -f /user/root/cert
+        hdfs dfs -rm -r -f /user/root/keystore
+        hdfs dfs -rm -r -f /user/root/nifi-properties
+        hdfs dfs -rm -r -f /user/root/truststore
         nifi-key-exch
     fi
 
