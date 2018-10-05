@@ -132,6 +132,8 @@ aadapp_id=$1
 aadapp_pwd=$2
 tenant_id=$3
 proxy_nifi=$4
+workspace_id=$5
+primary_key=$6
 
 
 if [[ -z "$aadapp_id" ]]; then
@@ -142,6 +144,12 @@ elif [[ -z "$aadapp_pwd" ]]; then
     exit 1
 elif [[ -z "$tenant_id" ]]; then
     echo "Tenant ID cannot be null, exit..."
+    exit 1
+elif [[ -z "$workspace_id" ]]; then
+    echo "Workspace ID cannot be null, exit..."
+    exit 1
+elif [[ -z "$primary_key" ]]; then
+    echo "Primary ID cannot be null, exit..."
     exit 1
 fi
 
@@ -155,6 +163,13 @@ fi
 
 OS_VERSION=$(lsb_release -sr)
 echo "OS Version is $OS_VERSION"
+
+# Install OMS Agent for Linux
+wget https://peakdiautomation.blob.core.windows.net/nifi/omsagent-1.6.1-3.universal.x64.sh -O /tmp/omsagent-1.6.1-3.universal.x64.sh
+
+sh /tmp/omsagent-1.6.1-3.universal.x64.sh --upgrade -w $workspace_id -s $primary_key
+
+rm -rf /tmp/omsagent-1.6.1-3.universal.x64.sh
 
 # Clean up the previous installation
 rm -rf /usr/hdp/current/nifi
