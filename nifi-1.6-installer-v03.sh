@@ -132,6 +132,8 @@ aadapp_id=$1
 aadapp_pwd=$2
 tenant_id=$3
 proxy_nifi=$4
+workspace_id=$5
+primary_key=$6
 
 
 if [[ -z "$aadapp_id" ]]; then
@@ -143,6 +145,15 @@ elif [[ -z "$aadapp_pwd" ]]; then
 elif [[ -z "$tenant_id" ]]; then
     echo "Tenant ID cannot be null, exit..."
     exit 1
+<<<<<<< HEAD
+=======
+elif [[ -z "$workspace_id" ]]; then
+    echo "Workspace ID cannot be null, exit..."
+    exit 1
+elif [[ -z "$primary_key" ]]; then
+    echo "Primary ID cannot be null, exit..."
+    exit 1
+>>>>>>> ccbb095cf9a373b63755d687fbfeb94f1e6da655
 fi
 
 # Import the helper method module.
@@ -156,6 +167,16 @@ fi
 OS_VERSION=$(lsb_release -sr)
 echo "OS Version is $OS_VERSION"
 
+<<<<<<< HEAD
+=======
+# Install OMS Agent for Linux
+wget https://peakdiautomation.blob.core.windows.net/nifi/omsagent-1.6.1-3.universal.x64.sh -O /tmp/omsagent-1.6.1-3.universal.x64.sh
+
+sh /tmp/omsagent-1.6.1-3.universal.x64.sh --upgrade -w $workspace_id -s $primary_key
+
+rm -rf /tmp/omsagent-1.6.1-3.universal.x64.sh
+
+>>>>>>> ccbb095cf9a373b63755d687fbfeb94f1e6da655
 # Clean up the previous installation
 rm -rf /usr/hdp/current/nifi
 
@@ -272,8 +293,11 @@ cat >/etc/systemd/system/multi-user.target.wants/nifi.service <<EOL
 Description=Apache NiFi
 
 [Service]
+<<<<<<< HEAD
 User=nifi_batch_di_01
 Group=nifi_batch_group
+=======
+>>>>>>> ccbb095cf9a373b63755d687fbfeb94f1e6da655
 Type=forking
 ExecStart=/usr/hdp/current/nifi/bin/nifi.sh start
 ExecStop=/usr/hdp/current/nifi/bin/nifi.sh stop
@@ -292,4 +316,8 @@ else
     echo "Using upstart configuration"
     initctl reload-configuration
     start nifi
+<<<<<<< HEAD
 fi
+=======
+fi
+>>>>>>> ccbb095cf9a373b63755d687fbfeb94f1e6da655
