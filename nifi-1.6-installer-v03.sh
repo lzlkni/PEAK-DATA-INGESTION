@@ -110,7 +110,7 @@ function wait-file-gen {
 
     # If wait more then 30min, exit the program
     if [[ $cnt -eq 120 ]];then       
-        error-handler 1 "Wait 10 mins, there should be error somewhere, please check..."
+        error-handler 1 "Waiting key"
     fi
 }
 
@@ -168,6 +168,7 @@ echo "OS Version is $OS_VERSION"
 wget https://peakdiautomation.blob.core.windows.net/nifi/omsagent-1.6.1-3.universal.x64.sh -O /tmp/omsagent-1.6.1-3.universal.x64.sh
 
 sh /tmp/omsagent-1.6.1-3.universal.x64.sh --upgrade -w $workspace_id -s $primary_key
+error-handler $? "OMS agent installation"
 
 rm -rf /tmp/omsagent-1.6.1-3.universal.x64.sh
 
@@ -240,7 +241,7 @@ sed -i 's/java.arg.3=-Xmx512m/java.arg.3=-Xmx8g/g' bootstrap.conf
     for f in $file_list; do
         wait-file-gen $f        
         hdfs dfs -get $f /usr/hdp/current/nifi/conf
-        error-handler $? "Getting $f error..."
+        error-handler $? "Getting $f"
     done
 
 # Config authorizers.xml
