@@ -165,6 +165,7 @@ OS_VERSION=$(lsb_release -sr)
 echo "OS Version is $OS_VERSION"
 
 # Install OMS Agent for Linux
+echo "Download and install OMS Aget..."
 wget https://peakdiautomation.blob.core.windows.net/nifi/omsagent-1.6.1-3.universal.x64.sh -O /tmp/omsagent-1.6.1-3.universal.x64.sh
 
 sh /tmp/omsagent-1.6.1-3.universal.x64.sh --upgrade -w $workspace_id -s $primary_key
