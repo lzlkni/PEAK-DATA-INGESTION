@@ -173,6 +173,18 @@ error-handler $? "OMS agent installation"
 
 rm -rf /tmp/omsagent-1.6.1-3.universal.x64.sh
 
+#
+# NiFi
+#
+
+# Stop NiFi anyway
+echo "Stop the NIFI service"
+if [[ $OS_VERSION == 16* ]]; then
+    systemctl start nifi
+else
+    stop nifi
+fi
+
 # Clean up the previous installation
 rm -rf /usr/hdp/current/nifi
 
