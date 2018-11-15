@@ -229,8 +229,8 @@ sed -i "s/nifi.variable.registry.properties=/nifi.variable.registry.properties=c
 # Review
 sed -i "s/nifi.web.proxy.host=/nifi.web.proxy.host=${proxy_nifi}/" nifi.properties
 
-sed -i 's/java.arg.2=-Xms512m/java.arg.2=-Xms4g/g' bootstrap.conf
-sed -i 's/java.arg.3=-Xmx512m/java.arg.3=-Xmx8g/g' bootstrap.conf
+sed -i 's/java.arg.2=-Xms512m/java.arg.2=-Xms16g/g' bootstrap.conf
+sed -i 's/java.arg.3=-Xmx512m/java.arg.3=-Xmx32g/g' bootstrap.conf
 
 
 # If it's wn0 run the key gen and exchange
