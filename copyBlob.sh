@@ -15,7 +15,6 @@ function usage() {
     Usage:
     $SCRIPTNAME 
         --table-file <Table list file>
-        [--destination-blob] <Destination blob name>
         [--destination-container] <Destination container name>
         --account-name <Storage account name of destination>
         --sas-token <SAS token of destination>
@@ -65,10 +64,6 @@ do
         --table-file)
                 tableFile="$2"
                 shift
-                ;;
-        --destination-blob)
-                destinationBlob="$2"
-                shift 
                 ;;
         --destination-container)
                 dContainer="$2" 
@@ -120,11 +115,15 @@ checknull "Source Account Name"     $sAccName
 checknull "Source SAS"              $sSas	
 checknull "Source Container"        $sContainer
 
+if [[ ! -f ${tableFile} ]];then
+        checkerror 1 "File ${tableFile} is not exist!"
+fi
+
 # Valuable
 MAXENDDAY="9999-12-31"
 todaydate=$(date +%Y%m%d)
 currentdatetime=$(date +'%Y%m%d %H:%M:%S')
-LOGFILE="${SCRIPTPATH}/logs/copyBlob.${todaydate}.log"
+LOGFILE="${SCRIPTPATH}/logs/copyBlob.$(basename ${tableFile} .txt).${todaydate}.log"
 
 
 echo "Copying started, please check ${LOGFILE} for detail."
@@ -179,7 +178,7 @@ do
         fi
 
         # List blob in the source container
-        query="?starts_with(name,'${inputTable}')"
+        query="?starts_with(name,'${inputTable}/')"
 
         tableList=$(az storage blob list --container-name  ${sContainer} \
         --account-name ${sAccName} \
@@ -188,7 +187,7 @@ do
 
         if [[ ${#tableList} -eq 0 ]];then
         
-        checkerror 1 "No table found for ${inputTable}, please check your input!"
+                checkerror 1 "No table found for ${inputTable}, please check your input!"
         fi
 
         # Formate the table list, remove charactor [ , "  etc.
@@ -197,11 +196,12 @@ do
         # For all the tables in list, check the date is between the setting date, then copy it to target
         for t in ${tableListFormated}
         do
-        echo "Processing $t ..."
+        
         tableDate=$(echo $t|awk -F '/' '{print $3}')
         tableDateD=$(date -d "${tableDate}" +%s)
 
         if [[ $tableDateD -ge $startDateD && $tableDateD -le $endDayD ]];then
+                echo "Processing $t ..."
                 command=$(az storage blob copy start \
                         --destination-blob "${t}" \
                         --destination-container "${dContainer}" \
