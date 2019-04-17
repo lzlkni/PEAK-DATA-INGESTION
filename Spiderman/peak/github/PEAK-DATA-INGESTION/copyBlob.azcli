@@ -1,0 +1,93 @@
+ az storage blob list  --container-name "peak-di-batches" --account-name "sacctuathkpeakdied"  --sas-token   "?sv=2018-03-28&ss=b&srt=sco&sp=wlc&se=2019-02-01T11:18:00Z&st=2019-02-01T03:18:00Z&spr=https&sig=myPiFxUXnU1KytUPUgWXvbCV4ffuunmSiYsUvwWFBS4%3D" --query [].name
+
+ az storage blob list  --container-name "peak-di-batches" --account-name "sacctuathkpeakdi"  --sas-token   "?sv=2018-03-28&ss=b&srt=sco&sp=rl&se=2019-02-01T11:37:10Z&st=2019-02-01T03:37:10Z&spr=https&sig=FednZmgInoH7yYAxTcZZJtHDHMp5UO5psz%2FcRs0B8X4%3D" --query [].name
+
+ az storage blob copy start \
+  --destination-blob "payme-dsvm-sql/user_update/2019-01-15/a7ef032f-e89c-4275-a7b9-a0e3b8b8b90b.sql" \
+  --destination-container "peak-di-batches" \
+  --account-name "sacctuathkpeakdied" \
+  --sas-token   "?sv=2018-03-28&ss=b&srt=co&sp=wc&se=2019-02-01T11:18:00Z&st=2019-02-01T03:18:00Z&spr=https&sig=kmMJkDn5QxmxfpaHPOtGUYJs4awVR5w2MXpokLIHExc%3D" \
+  --source-account-name "sacctuathkpeakdi"  \
+  --source-sas  "?sv=2018-03-28&ss=b&srt=o&sp=rl&se=2019-02-01T11:37:10Z&st=2019-02-01T03:37:10Z&spr=https&sig=a8i12OpNxmRXECTPeaNyMJ%2F%2FLDGYtvbUK%2FFTAPa0zh0%3D" \
+  --source-container "peak-di-batches" \
+  --source-blob "payme-dsvm-sql/user_update/2019-01-15/a7ef032f-e89c-4275-a7b9-a0e3b8b8b90b.sql" \
+  --debug
+
+  az storage container create --name "peak-di-batches1"  --account-name "sacctuathkpeakdied"  --sas-token   "?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-02-01T10:34:30Z&st=2019-02-01T02:34:30Z&spr=https&sig=knSFBqr%2FInv4OMLD%2FZjBQMb4znohsuSN5wjtR6aB11k%3D"
+
+  ?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-02-01T11:08:13Z&st=2019-02-01T03:08:13Z&spr=https&sig=iJbVVo3F88ADanQ4Qg5vjxtKnjhI%2F7BKNsRclL%2FnE5k%3D
+
+
+  az storage blob copy start \
+  --destination-blob "payme-dsvm-sql/user_update/2019-01-15" \
+  --destination-container "peak-di-batches" \
+  --account-name "sacctuathkpeakdied" \
+  --sas-token   "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-12T16:43:27Z&st=2019-02-12T08:43:27Z&spr=https&sig=yckJoKPRMn%2BhRyDdLuMuM0m439%2FV%2B9CLsfme5bljYLM%3D" \
+  --source-account-name "sacctuathkpeakdi"  \
+  --source-sas  "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-12T16:40:40Z&st=2019-02-12T08:40:40Z&spr=https&sig=X4%2BcYOTsuAu9t%2F%2BXrcEQyx0fN55OwtZmMYJeWF0VMKc%3D" \
+  --source-container "peak-di-batches" \
+  --source-blob "payme-dsvm-sql/user_update/2019-01-15" \
+  --debug
+
+  az storage container list --account-name "sacctcitesthkpeakdi " --sas-token   "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-28T14:03:03Z&st=2019-02-28T06:03:03Z&spr=https&sig=OJLtr%2BL0pPIXlhDCW5ZsXPh1p1I7HdflWy314bOkUdU%3D" --query "[].name"
+
+  az storage container create --name "peak-di-batches" --account-name "sacctuathkpeakdied" --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rlc&se=2019-02-12T09:58:57Z&st=2019-02-12T01:58:57Z&spr=https&sig=0NhWxJDiHR99gJwIvAW68LIP2kHPiRZIO4Tc3Tby6Ns%3D"
+
+
+
+  az storage blob show --container-name peak-di-batches --name "payme-dsvm-data/user_rate_app/2019-01-10/012497e7-cd1a-4ecd-8468-06b668436d2e.csv" --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-12T15:20:52Z&st=2019-02-12T07:20:52Z&spr=https&sig=bEQo1HoaCTpmW%2B5%2BjoBmkcmAF5E8v20vdoPKztEBiEs%3D" --account-name sacctuathkpeakdied
+  
+  az storage blob show \
+  --container-name "peak-di-batches" \
+  --name "payme-dsvm-data/user_rate_app/2019-01-10/012497e7-cd1a-4ecd-8468-06b668436d2e.csv" \
+  --sas-token "?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-02-12T16:40:40Z&st=2019-02-12T08:40:40Z&spr=https&sig=IL4vJpWmBzaQVrgcoQ8PrYaKUuPts7Cg3ICAugGmQl0%3D" \
+  --account-name "sacctuathkpeakdi"
+
+  az storage blob delete --container-name "peak-di-batches"  --name "payme-dsvm-data/user_address/2019-01-14/f27de8f5-426b-4463-95e2-14e8c7787bfd.json"  --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-13T16:13:38Z&st=2019-02-13T08:13:38Z&spr=https&sig=eQ%2BYFWV%2BR6kJKHZ2ZsRdiKEfwzqQhiLgc9G3VS4uOtA%3D" --account-name "sacctuathkpeakdied"
+
+  ./copyBlob.sh \
+ --table-file copylist.txt \
+ --source-account-name sacctuathkpeakdi \
+ --source-container peak-di-batches \
+ --source-sas "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-13T17:08:09Z&st=2019-02-13T09:08:09Z&spr=https&sig=380UN9X0Bx7djcKpx56Domn6G97LGOCmhXvNQ3itPf8%3D" \
+ --account-name "sacctuathkpeakdied" \
+ --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-13T16:13:38Z&st=2019-02-13T08:13:38Z&spr=https&sig=eQ%2BYFWV%2BR6kJKHZ2ZsRdiKEfwzqQhiLgc9G3VS4uOtA%3D"
+
+
+
+./copyBlob.sh \
+ --table-file copylist.txt \
+ --source-account-name sacctuathkpeakdied \
+ --source-container peak-di-batches \
+ --source-sas "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-13T16:13:38Z&st=2019-02-13T08:13:38Z&spr=https&sig=eQ%2BYFWV%2BR6kJKHZ2ZsRdiKEfwzqQhiLgc9G3VS4uOtA%3D" \
+ --account-name "sacctcitesthkpeakdi" \
+ --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-13T16:39:37Z&st=2019-02-13T08:39:37Z&spr=https&sig=Mn%2F%2Ba3kcMaPzmRTyA5Orz3dzmBK8ahAgrBTYm5zEMbo%3D" \
+ -r
+
+ ./copyBlob.sh \
+ --table-file copylist.txt \
+ --source-account-name sacctuathkpeakdied \
+ --source-container peak-di-batches \
+ --source-sas "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-13T16:13:38Z&st=2019-02-13T08:13:38Z&spr=https&sig=eQ%2BYFWV%2BR6kJKHZ2ZsRdiKEfwzqQhiLgc9G3VS4uOtA%3D" \
+ --account-name "sacctpresgpeakdi" \
+ --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwlac&se=2019-02-13T17:28:33Z&st=2019-02-13T09:28:33Z&spr=https&sig=KpoJYozZvesL13CUhxpAtlX2g2UZ8mzm7acQCUUQA3w%3D" \
+ -r
+
+
+az storage blob copy start-batch --account-name "sacctuathkpeakdi" --sas-token "?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-02-26T20:42:07Z&st=2019-02-26T12:42:07Z&spr=https&sig=xx9gk5TzyfGfH68htbuC%2B4fVyA87ZYOUO4yNkwR83L4%3D" --destination-container "fps-testing1" --source-uri "https://sacctuathkpeakdi.blob.core.windows.net/fps-testing" --source-sas "?sv=2018-03-28&ss=bfqt&srt=sco&sp=rwdlacup&se=2019-02-26T20:42:07Z&st=2019-02-26T12:42:07Z&spr=https&sig=xx9gk5TzyfGfH68htbuC%2B4fVyA87ZYOUO4yNkwR83L4%3D" --pattern "ehubns-uat-hk-peak-di/fpstesting/0/2019/02/25/*.avro" --debug
+
+
+az storage blob list --container-name events-from-ehub --account-name sacctcitesthkpeakdi --sas-token "?sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-28T14:03:03Z&st=2019-02-28T06:03:03Z&spr=https&sig=OJLtr%2BL0pPIXlhDCW5ZsXPh1p1I7HdflWy314bOkUdU%3D"  --query ["?starts_with(name,'ehubns-citest-hk-peak-di/ehub-citest-hk-peak-di/0/2018/11/16/16/43/09.avro')"].name | grep "ehubns-citest-hk-peak-di\/ehub-citest-hk-peak-di\/[0-9]\+\/2018\/11\/16\/16\/43\/09.avro"
+
+?starts_with(name,'${blobPath}/')
+
+
+az storage blob copy start-batch \
+--destination-container "events-from-ehub"  \
+--account-name sacctcitestsgpeakdi \
+--sas-token "sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-28T11:38:00Z&st=2019-02-28T03:38:00Z&spr=https&sig=jjJkpb4h%2Bmv97QSQO4EbgTiTbkDtlLpocxcJgB8cE4Y%3D" \
+--source-container "events-from-ehub" \
+--source-account-name "sacctcitesthkpeakdi"  \
+--source-sas "sv=2018-03-28&ss=b&srt=sco&sp=rwdlac&se=2019-02-28T11:36:45Z&st=2019-02-28T03:36:45Z&spr=https&sig=vLzLGzzDky0OghSR6AGBhcLZtcoXU2TjPa6F%2FY6LqP8%3D" \
+--pattern "ehubns-citest-hk-peak-di/ehub-citest-hk-peak-di/*/2018/11/16/16/43/*.avro" \
+--debug
