@@ -1,0 +1,118 @@
+{
+    "name": "JB_NB_DE_SLIM_ClickStream_Streaming_Stream_ETL_0",
+    "new_cluster": {
+      "spark_version": "5.3.x-scala2.11",
+      "spark_conf": {
+        "spark.databricks.repl.allowedLanguages": "sql,python,scala",
+        "spark.databricks.io.cache.enabled": "true",
+        "spark.databricks.delta.preview.enabled": "true",
+        "spark.sql.session.timeZone": "Hongkong",
+        "spark.databricks.cluster.profile": "serverless"
+      },
+      "node_type_id": "Standard_DS4_v2",
+      "driver_node_type_id": "Standard_DS3_v2",
+      "spark_env_vars": {
+        "PYSPARK_PYTHON": "/databricks/python3/bin/python3"
+      },
+      "enable_elastic_disk": true,
+      "init_scripts": [
+        {
+          "dbfs": {
+            "destination": "dbfs:/FileStore/init-scripts/chg-time-zone.sh"
+          }
+        }
+      ],
+      "autoscale": {
+        "min_workers": 2,
+        "max_workers": 8
+      }
+    },
+      "libraries": [
+    {"jar":"dbfs:/FileStore/Library/Clickstream/Java/UserAgentUtils-1.21.jar"},
+    {"jar":"dbfs:/FileStore/Library/Clickstream/Java/accessors-smart-1.2.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/activation-1.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/asm-5.0.4.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/aws-java-sdk-dynamodb-1.11.490.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/azure-eventhubs-2.2.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/azure-eventhubs-spark_2.11-2.3.9.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/btf-1.2.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/cats-core_2.11-1.6.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/cats-kernel_2.11-1.6.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/cats-macros_2.11-1.6.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-core_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-generic_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-java8_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-jawn_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-numbers_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/circe-parser_2.11-0.11.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/collector-payload-1-0.0.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/commons-collections4-4.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/commons-csv-1.4.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/commons-lang3-3.5.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/geoip2-2.11.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/iab-spiders-and-robots-client-0.1.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/iglu-core-circe_2.11-0.4.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/iglu-core_2.11-0.4.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/iglu-scala-client_2.11-0.5.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jackson-annotations-2.9.3.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jackson-coreutils-1.6.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jackson-databind-2.9.9.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jackson-mapper-asl-1.9.13.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jawn-parser_2.11-0.14.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/joda-money-0.9.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jopt-simple-4.6.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/json-path-2.4.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/json-schema-core-1.2.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/json-schema-validator-2.2.3.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/json-smart-2.3.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/json4s-scalaz_2.11-3.2.11.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/jsonpath_2.11-0.6.4.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/libphonenumber-6.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/mailapi-1.4.3.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/maven-artifact-3.2.2.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/maxmind-db-1.2.2.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/msg-simple-1.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/mysql-connector-java-8.0.16.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/parboiled_2.11-2.1.4.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/plexus-utils-3.2.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/proton-j-0.33.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/qpid-proton-j-extensions-1.1.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/referer-parser_2.11-0.3.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/rhino-1.7R4.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scala-forex_2.11-0.5.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scala-java8-compat_2.11-0.9.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scala-maxmind-iplookups_2.11-0.4.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scala-uri_2.11-0.5.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scala-weather_2.11-0.3.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scalaj-http_2.11-2.4.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scalap-2.11.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/scalaz-core_2.11-7.0.9.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/schema-sniffer-1-0.0.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/shapeless_2.11-2.3.3.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/slf4j-api-1.7.25.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/snowplow-common-enrich_2.11-0.36.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/snowplow-scala-analytics-sdk_2.11-0.4.1.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/snowplow-thrift-raw-event-0.1.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/spray-json_2.11-1.3.2.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/uap-java-1.4.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/uri-template-0.9.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/util-collection_2.11-18.2.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/util-core_2.11-18.2.0.jar"},
+      {"jar":"dbfs:/FileStore/Library/Clickstream/Java/util-function_2.11-18.2.0.jar"}
+
+    
+  ],
+    "email_notifications": {},
+    "timeout_seconds": 0,
+    "max_retries": -1,
+    "min_retry_interval_millis": 0,
+    "retry_on_timeout": false,
+    "notebook_task": {
+      "notebook_path": "/Master/Data_Engineering/Clean_Staging/ClickStream/NB_DE_SLIM_ClickStream_Streaming_ETL",
+      "base_parameters": {
+        "confId": "100"
+      },
+      "revision_timestamp": 0
+    },
+    "max_concurrent_runs": 1
+}
